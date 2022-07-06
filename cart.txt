@@ -1,0 +1,37 @@
+@startuml
+actor 用户 as usr
+actor 控制器 as controller
+actor 服务 as service
+actor 数据库 as db
+alt 用户已经拥有一个购物车
+    usr->controller:发送用户id，要求获取购物车;
+    controller->service:绑定指定用户的购物车;
+    service->db:查找数据库取出购物车;
+    service->controller:回显购物车id;
+else
+    usr->controller:发送用户id，要求新建购物车;
+    controller->service:新建并绑定购物车;
+    service->service:新建、绑定购物车;
+    service->controller:回显购物车id;
+end
+loop 购物
+alt 添加商品
+    usr->controller:添加商品;
+    controller->service:发送商品id;
+    service->service:向商品微服务发送请求，根据商品id获取完整商品;
+    service->service:将商品添入购物车;
+else 删减商品
+    usr->controller:删减商品;
+    controller->service:发送商品id和删除数量;
+    service->service:查看购物车，删除指定商品;
+else 结账
+usr->controller:结账;
+controller->service:要求结账;
+service->db:将当前购物车存入数据库
+service->service:向订单微服务发送请求，根据购物车id结账;
+end
+end
+usr->controller:结束购物;
+controller->service:用户登出;
+service->db:更新购物车信息;
+@enduml

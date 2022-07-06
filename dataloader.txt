@@ -1,0 +1,7 @@
+@startuml
+start
+    :滤去拥有空的或无法转化为double的price的商品;
+    :滤去没有图片的商品;
+    :将JsonProduct映射为Product,并用ObjectId随机生成一个MongoId用于数据库存储;
+stop
+@enduml

@@ -1,0 +1,55 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: pos-gateway
+  cloud:
+    gateway:
+      routes:
+        - id:
+            pos-product
+          uri:
+            http://localhost:8082
+          predicates:
+            - Path=/product/products,/product/products/{page},/product/product/{id},/product/products/search/{title}
+            - Method=GET
+
+        - id:
+            pos-cart-post
+          uri:
+            http://localhost:8081
+          predicates:
+            - Path=/cart/create/{usrId},/cart/select/usr/{usrId},/cart/select/cart/{cartId},/cart/checkout,/cart/logout,/cart/add/{productId}/{quantity}
+            - Method=POST
+
+        - id:
+            pos-cart-get
+          uri:
+            http://localhost:8081
+          predicates:
+            - Path=/cart/list/{cartId},/cart/list
+            - Method=GET
+
+        - id:
+            pos-cart-delete
+          uri:
+            http://localhost:8081
+          predicates:
+            - Path=/cart/item/{productId}/{quantity},/cart/item/{productId},/cart
+            - Method=DELETE
+
+        - id:
+            pos-delivery-get
+          uri:
+            http://localhost:8083
+          predicates:
+            - Path=/delivery/list/{id}
+            - Method=GET
+
+        - id:
+            pos-delivery-post
+          uri:
+            http://localhost:8083
+          predicates:
+            - Path=/delivery/checkout
+            - Method=GET
