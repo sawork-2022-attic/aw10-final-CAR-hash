@@ -14,7 +14,7 @@
 
 ### DataLoader
 
-​		同aw08一样，本实验中的商品数据利用Spring Batch存放在数据库里。
+​		同aw06一样，本实验中的商品数据利用Spring Batch存放在数据库里。
 
 ​		为方便更改数据结构，使用MongoDB。另一方面，由于Amazon提供的商品JSON中有大量不可用的数据和重复数据，该模块相比aw08在写入前添加了合法性判断，通过流处理滤去了不合理的数据。
 
@@ -393,7 +393,8 @@ void checkout() {
 
 ![image-20220706214210698](ref/image-20220706214210698.png)
 
-## 
+## API文档
+		见https://www.apifox.cn/apidoc/shared-9992666e-4a69-46c4-921a-193527c9d043。
 
 
 
